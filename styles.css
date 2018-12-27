@@ -1,0 +1,13 @@
+html {
+    padding: 0px;
+    margin: 0px;
+    background-color: black;
+}
+
+#menu_btn{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 100px;
+    background-color: #ff00ff;
+}
