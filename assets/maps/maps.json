@@ -1,0 +1,20 @@
+{
+    "maps": [
+        {
+            "name": "test",
+            "file": "grid.png",
+            "width": 60,
+            "height": 60,
+            "offsetX": 0,
+            "offsetY": 0
+        },
+        {
+            "name": "test2",
+            "file": "grid.png",
+            "width": 120,
+            "height": 120,
+            "offsetX": 0,
+            "offsetY": 0
+        }
+    ]
+}

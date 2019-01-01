@@ -22,7 +22,7 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
 
-    this.initUI();
+    //this.initUI();
   }
 
   private initUI():void {
