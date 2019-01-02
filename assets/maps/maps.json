@@ -6,13 +6,70 @@
             "width": 60,
             "height": 60,
             "offsetX": 0,
-            "offsetY": 0
+            "offsetY": 0,
+            "tokenPositions": [
+                { 
+                    "token": "red_token",
+                    "x": 3,
+                    "y": 3
+                }
+            ]
         },
         {
-            "name": "test2",
-            "file": "grid.png",
-            "width": 120,
-            "height": 120,
+            "name": "goblin_ambush",
+            "file": "goblin_ambush.jpg",
+            "width": 59,
+            "height": 59,
+            "offsetX": 52,
+            "offsetY": 52,
+            "tokenPositions": [
+                { 
+                    "token": "david_pc",
+                    "x": 2,
+                    "y": 2
+                },
+                { 
+                    "token": "greg_pc",
+                    "x": 2,
+                    "y": 3
+                },
+                { 
+                    "token": "yukon_pc",
+                    "x": 3,
+                    "y": 2
+                },
+                { 
+                    "token": "mitch_pc",
+                    "x": 3,
+                    "y": 3
+                },
+                { 
+                    "token": "goblin",
+                    "x": 14,
+                    "y": 4
+                },
+                { 
+                    "token": "goblin",
+                    "x": 18,
+                    "y": 4
+                },
+                { 
+                    "token": "goblin",
+                    "x": 15,
+                    "y": 12
+                },
+                { 
+                    "token": "goblin",
+                    "x": 19,
+                    "y": 7
+                }
+            ]
+        },
+        {
+            "name": "cragmaw_hideout",
+            "file": "cragmaw_hideout.jpg",
+            "width": 180,
+            "height": 180,
             "offsetX": 0,
             "offsetY": 0
         }

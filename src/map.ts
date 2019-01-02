@@ -1,3 +1,5 @@
+import { TokenPosition } from "./tokenPosition";
+
 export class Map {
     name: string;
     file: string;
@@ -5,4 +7,5 @@ export class Map {
     height: integer;
     offsetX: integer;
     offsetY: integer;
+    tokenPositions?: TokenPosition[];
 }
