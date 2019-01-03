@@ -20,6 +20,7 @@ export class MainScene extends Phaser.Scene {
     this.mapManager = new MapManager();
     this.map = this.mapManager.loadMap('goblin_ambush');
     this.load.image(this.map.name, "./assets/maps/"+this.map.file);
+    this.load.spritesheet("tokens", "./assets/tokens/tokens.png", { frameWidth: 120, frameHeight: 120 });
     this.load.image("token", "./assets/tokens/david_pc.png");
   }
 
@@ -71,14 +72,14 @@ export class MainScene extends Phaser.Scene {
     this.tokens = this.add.group();
     if(tokenPositions) {
       for(var i in tokenPositions) {
-        this.tokens.add(this.addToken(tokenPositions[i].x,tokenPositions[i].y, 0));
+        this.tokens.add(this.addToken(tokenPositions[i].x,tokenPositions[i].y, tokenPositions[i].frame));
       }
     }
   }
 
   private addToken(gridX:integer, gridY:integer, frame:integer):Phaser.GameObjects.Image {
     let token = this.add.image(gridX * this.map.width + this.map.width / 2 + this.map.offsetX, 
-      gridY * this.map.height + this.map.height / 2 + this.map.offsetY , 'token');
+      gridY * this.map.height + this.map.height / 2 + this.map.offsetY , 'tokens', frame);
     
     let scaleX = 1;
     let scaleY = 1;

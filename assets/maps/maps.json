@@ -10,6 +10,7 @@
             "tokenPositions": [
                 { 
                     "token": "red_token",
+                    "frame": 0,
                     "x": 3,
                     "y": 3
                 }
@@ -25,41 +26,49 @@
             "tokenPositions": [
                 { 
                     "token": "david_pc",
+                    "frame": 3,
                     "x": 2,
                     "y": 2
                 },
                 { 
                     "token": "greg_pc",
+                    "frame": 6,
                     "x": 2,
                     "y": 3
                 },
                 { 
                     "token": "yukon_pc",
+                    "frame": 9,
                     "x": 3,
                     "y": 2
                 },
                 { 
                     "token": "mitch_pc",
+                    "frame": 7,
                     "x": 3,
                     "y": 3
                 },
                 { 
                     "token": "goblin",
+                    "frame": 1,
                     "x": 14,
                     "y": 4
                 },
                 { 
                     "token": "goblin",
+                    "frame": 1,
                     "x": 18,
                     "y": 4
                 },
                 { 
                     "token": "goblin",
+                    "frame": 1,
                     "x": 15,
                     "y": 12
                 },
                 { 
                     "token": "goblin",
+                    "frame": 1,
                     "x": 19,
                     "y": 7
                 }
