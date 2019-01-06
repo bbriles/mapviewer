@@ -1,6 +1,7 @@
 import { MapManager } from "../mapManager";
 import { Map } from "../map";
 import { TokenPosition } from "../tokenPosition";
+import { Viewer } from "../viewer";
 
 export class MainScene extends Phaser.Scene {
   public currentAction:string = "none";
@@ -19,7 +20,7 @@ export class MainScene extends Phaser.Scene {
 
   preload(): void {
     this.mapManager = new MapManager();
-    this.map = this.mapManager.loadMap("test");
+    this.map = this.mapManager.loadMap("goblin_ambush");
     this.load.image(this.map.name, "./assets/maps/"+this.map.file);
     this.load.spritesheet("tokens", "./assets/tokens/tokens.png", { frameWidth: 120, frameHeight: 120 });
     this.load.image("hide", "./assets/hide_red.png");
@@ -104,16 +105,30 @@ export class MainScene extends Phaser.Scene {
     let cols = Math.ceil((this.mapSprite.width-this.map.offsetX) / this.map.width);
     let rows = Math.ceil((this.mapSprite.height-this.map.offsetY) / this.map.height);
 
-    let rt = this.add.renderTexture(0,0,this.mapSprite.width,this.mapSprite.height);
-    let hider = this.add.image(0,0,"hide");
-    hider.setScale(this.map.width / hider.width, this.map.height / hider.height);
-    hider.setOrigin(0, 0);
-
+    let self = this;
+    
     for(var row = 0; row < rows; row++) {
       for(var col = 0; col < cols; col++) {
-        rt.draw(hider,this.map.offsetX + col * this.map.width, this.map.offsetX + row * this.map.height);
-        //let img = this.add.image(this.map.offsetX + col * this.map.width, this.map.offsetX + row * this.map.height, "hide").setOrigin(0, 0);
-        //this.hideGroup.add(img);
+        
+        let img = this.add.image(this.map.offsetX + col * this.map.width, this.map.offsetX + row * this.map.height, "hide").setOrigin(0, 0)
+        img.setScale(this.map.width / img.width, this.map.height / img.height);
+        this.hideGroup.add(img);
+        img.setInteractive();
+
+        img.on('pointerover', function (pointer) {
+          let viewer = self.game as Viewer;
+          
+          if(pointer.isDown) {
+            if (viewer.currentAction == "show") {
+              this.visible = false;
+            }
+            else if (viewer.currentAction == "hide") {
+              this.alpha = 1;
+            }
+          } 
+  
+      });
+
       }
     }
   }

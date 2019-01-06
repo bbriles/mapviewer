@@ -13,8 +13,8 @@ const config: GameConfig = {
   scene: MainScene
 };
 
-// game class
-export class Game extends Phaser.Game {
+// viewer class
+export class Viewer extends Phaser.Game {
 
   private selectedButton: HTMLElement = null;
   public currentAction: string;
@@ -22,15 +22,15 @@ export class Game extends Phaser.Game {
   constructor(config: GameConfig) {
     super(config);
 
-    //this.initUI();
+    this.initUI();
   }
 
   private initUI():void {
-    let btn = document.getElementById("panButton");
-    btn.addEventListener("click", (e:Event) => this.clickMenuButton("pan"));
-    // default to pan being selected
-    this.clickMenuButton("pan");
-    btn = document.getElementById("moveTokenButton");
+    //let btn = document.getElementById("panButton");
+    //btn.addEventListener("click", (e:Event) => this.clickMenuButton("pan"));
+    let btn = document.getElementById("moveTokenButton");
+    this.clickMenuButton("move");
+
     btn.addEventListener("click", (e:Event) => this.clickMenuButton("move"));
     btn = document.getElementById("showButton");
     btn.addEventListener("click", (e:Event) => this.clickMenuButton("show"));
@@ -73,5 +73,5 @@ export class Game extends Phaser.Game {
 
 // when the page is loaded, create our game instance
 window.onload = () => {
-  var game = new Game(config);
+  var game = new Viewer(config);
 };
