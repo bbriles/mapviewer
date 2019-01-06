@@ -7,5 +7,6 @@ export class Map {
     height: integer;
     offsetX: integer;
     offsetY: integer;
+    hidden: boolean;
     tokenPositions?: TokenPosition[];
 }
