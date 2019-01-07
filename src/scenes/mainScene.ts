@@ -11,6 +11,7 @@ export class MainScene extends Phaser.Scene {
   private tokens: Phaser.GameObjects.Group;
   protected controls: Phaser.Cameras.Controls.SmoothedKeyControl;
   protected hideGroup: Phaser.GameObjects.Group;
+  protected hideTiles: Phaser.GameObjects.GameObject[][];
 
   constructor() {
     super({
@@ -20,17 +21,20 @@ export class MainScene extends Phaser.Scene {
 
   preload(): void {
     this.mapManager = new MapManager();
-    this.map = this.mapManager.loadMap("goblin_ambush");
+    this.map = this.mapManager.loadMap("cragmaw_hideout");
     this.load.image(this.map.name, "./assets/maps/"+this.map.file);
     this.load.spritesheet("tokens", "./assets/tokens/tokens.png", { frameWidth: 120, frameHeight: 120 });
-    this.load.image("hide", "./assets/hide_red.png");
+    this.load.image("hide", "./assets/hide.png");
     
   }
 
   create(): void {
     this.mapSprite = this.add.sprite(0, 0, this.map.name).setOrigin(0, 0);
+    this.mapSprite.setInteractive();
+
     this.addTokens(this.map.tokenPositions);
     this.hideGroup = this.add.group();
+    this.hideTiles = new Array<Phaser.GameObjects.GameObject[]>();
     if(this.map.hidden) {
       this.hideMap();
     }
@@ -56,18 +60,38 @@ export class MainScene extends Phaser.Scene {
 
     let self = this;
     this.input.on("drag", function(pointer, gameObject, dragX, dragY):void {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
+      let viewer = self.game as Viewer;
+
+      if(viewer.currentAction == "move") {
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+      }
     });
 
     this.input.on("dragend", function(pointer, gameObject):void {
-      let xOffset = self.map.offsetX + self.map.width /2;
-      let yOffset = self.map.offsetY + self.map.height /2;
+      let viewer = self.game as Viewer;
 
-      gameObject.x = Math.round((gameObject.x - xOffset) / self.map.width)  * self.map.width + xOffset;
-      gameObject.y = Math.round((gameObject.y - yOffset) / self.map.height) * self.map.height + yOffset;
+      if(viewer.currentAction == "move") {
+        let xOffset = self.map.offsetX + self.map.width /2;
+        let yOffset = self.map.offsetY + self.map.height /2;
+
+        gameObject.x = Math.round((gameObject.x - xOffset) / self.map.width)  * self.map.width + xOffset;
+        gameObject.y = Math.round((gameObject.y - yOffset) / self.map.height) * self.map.height + yOffset;
+      }
     });
 
+    this.input.on("pointermove", function(pointer, gameObject) {
+      let viewer = self.game as Viewer;
+
+      if(pointer.isDown && viewer.currentAction == "hide") {
+        let col = Math.floor((pointer.worldX - self.map.offsetX) / self.map.width);
+        let row = Math.floor((pointer.worldY - self.map.offsetY) / self.map.height);
+
+        if(col >= 0 && row >= 0 && !self.hideTiles[row][col]) {
+          self.addHideTile(row, col);
+        }
+      }
+    });
   }
 
   update(time, delta):void
@@ -105,31 +129,36 @@ export class MainScene extends Phaser.Scene {
     let cols = Math.ceil((this.mapSprite.width-this.map.offsetX) / this.map.width);
     let rows = Math.ceil((this.mapSprite.height-this.map.offsetY) / this.map.height);
 
-    let self = this;
-    
     for(var row = 0; row < rows; row++) {
+      this.hideTiles[row] = new Array<Phaser.GameObjects.GameObject>();
       for(var col = 0; col < cols; col++) {
-        
-        let img = this.add.image(this.map.offsetX + col * this.map.width, this.map.offsetX + row * this.map.height, "hide").setOrigin(0, 0)
-        img.setScale(this.map.width / img.width, this.map.height / img.height);
-        this.hideGroup.add(img);
-        img.setInteractive();
-
-        img.on('pointerover', function (pointer) {
-          let viewer = self.game as Viewer;
-          
-          if(pointer.isDown) {
-            if (viewer.currentAction == "show") {
-              this.visible = false;
-            }
-            else if (viewer.currentAction == "hide") {
-              this.alpha = 1;
-            }
-          } 
-  
-      });
-
+        this.addHideTile(row, col);
       }
     }
+  }
+
+  private addHideTile(row, col) {
+    let self = this;
+    let img = this.add.image(this.map.offsetX + col * this.map.width, this.map.offsetX + row * this.map.height, "hide");
+    img.setOrigin(0, 0);
+    img.setScale(this.map.width / img.width, this.map.height / img.height);
+    img.setInteractive();
+
+    this.hideGroup.add(img);
+    this.hideTiles[row][col] = img;
+
+    img.on('pointerover', function (pointer) {
+      let viewer = self.game as Viewer;
+      
+      if(pointer.isDown) {
+        if (viewer.currentAction == "show") {
+          this.destroy();
+          let col = Math.floor((pointer.worldX - self.map.offsetX) / self.map.width);
+          let row = Math.floor((pointer.worldY - self.map.offsetY) / self.map.height);
+          self.hideTiles[row][col] = null;
+        }
+      } 
+
+    });
   }
 }
