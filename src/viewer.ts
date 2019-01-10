@@ -3,6 +3,7 @@
 import "phaser";
 import { MainScene } from "./scenes/mainScene";
 import * as friendlyJson from "../assets/tokens/friendly.json";
+import * as enemyJson from "../assets/tokens/enemy.json";
 
 // main game configuration
 const config: GameConfig = {
@@ -76,10 +77,12 @@ export class Viewer extends Phaser.Game {
           }
         }
         else if(action == "enemy") {
-          let option = document.createElement("option");
-          option.value= "enemy";
-          option.text = "ENEMY!";
-          list.append(option);
+          for (var i in enemyJson.tokens) {
+            let option = document.createElement("option");
+            option.value= enemyJson.tokens[i].frame.toString();
+            option.text = enemyJson.tokens[i].id;
+            list.append(option);
+          }
         }
       }
       else if (!listMenu.classList.contains("hidden")) {

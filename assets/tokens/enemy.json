@@ -1,0 +1,29 @@
+{
+    "tokens": [
+        {
+            "id": "E01",
+            "name": "Goblin",
+            "frame": 1
+        },
+        {
+            "id": "E02",
+            "name": "Wolf",
+            "frame": 5
+        },
+        {
+            "id": "E03",
+            "name": "Bugbear",
+            "frame": 0
+        },
+        {
+            "id": "E04",
+            "name": "Owlbear",
+            "frame": 2
+        },
+        {
+            "id": "E05",
+            "name": "Yeemik",
+            "frame": 8
+        }
+    ]
+}
