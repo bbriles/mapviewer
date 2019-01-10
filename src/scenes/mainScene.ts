@@ -21,7 +21,7 @@ export class MainScene extends Phaser.Scene {
 
   preload(): void {
     this.mapManager = new MapManager();
-    this.map = this.mapManager.loadMap("cragmaw_hideout");
+    this.map = this.mapManager.loadMap("test");
     this.load.image(this.map.name, "./assets/maps/"+this.map.file);
     this.load.spritesheet("tokens", "./assets/tokens/tokens.png", { frameWidth: 120, frameHeight: 120 });
     this.load.image("hide", "./assets/hide.png");
@@ -92,6 +92,17 @@ export class MainScene extends Phaser.Scene {
         }
       }
     });
+
+    this.input.on("pointerdown", function(pointer) {
+      let viewer = self.game as Viewer;
+
+      let col = Math.floor((pointer.worldX - self.map.offsetX) / self.map.width);
+      let row = Math.floor((pointer.worldY - self.map.offsetY) / self.map.height);
+
+      if(viewer.currentAction == "friendly" || viewer.currentAction == "enemy") {
+        self.addToken(col, row, +viewer.getSelectedOption());
+      }
+    });
   }
 
   update(time, delta):void
@@ -121,7 +132,15 @@ export class MainScene extends Phaser.Scene {
     token.setScale(scaleX,scaleY);
     token.setInteractive();
     this.input.setDraggable(token);
-    
+    let self = this;
+    token.on("pointerdown", function(pointer) {
+      let viewer = self.game as Viewer;
+
+      if(viewer.currentAction == "kill") {
+        this.destroy();
+      }
+    });
+
     return token;
   }
 

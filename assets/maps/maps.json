@@ -7,15 +7,7 @@
             "height": 60,
             "offsetX": 0,
             "offsetY": 0,
-            "hidden": true,
-            "tokenPositions": [
-                { 
-                    "token": "red_token",
-                    "frame": 0,
-                    "x": 3,
-                    "y": 3
-                }
-            ]
+            "hidden": false
         },
         {
             "name": "goblin_ambush",
