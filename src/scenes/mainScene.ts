@@ -21,11 +21,10 @@ export class MainScene extends Phaser.Scene {
 
   preload(): void {
     this.mapManager = new MapManager();
-    this.map = this.mapManager.loadMap("test");
+    this.map = this.mapManager.loadMap("M00");
     this.load.image(this.map.name, "./assets/maps/"+this.map.file);
     this.load.spritesheet("tokens", "./assets/tokens/tokens.png", { frameWidth: 120, frameHeight: 120 });
     this.load.image("hide", "./assets/hide.png");
-    
   }
 
   create(): void {

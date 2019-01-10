@@ -4,6 +4,7 @@ import "phaser";
 import { MainScene } from "./scenes/mainScene";
 import * as friendlyJson from "../assets/tokens/friendly.json";
 import * as enemyJson from "../assets/tokens/enemy.json";
+import * as mapsJson from "../assets/maps/maps.json";
 
 // main game configuration
 const config: GameConfig = {
@@ -62,16 +63,25 @@ export class Viewer extends Phaser.Game {
 
       let listMenu = document.getElementById("listMenu");
       // handle sub-menu
-      if(action == "friendly" || action == "enemy") {
+      if(action == "map" || action == "friendly" || action == "enemy") {
         listMenu.classList.remove("hidden");
         let list = document.getElementById("optionList");
+        // Clear options list
         while (list.firstChild) {
           list.removeChild(list.firstChild);
         }
-        if(action == "friendly") {
+        if(action == "map") {
+          for (var i in mapsJson.maps) {
+            let option = document.createElement("option");
+            option.value = i;
+            option.text = mapsJson.maps[i].name;
+            list.append(option);
+          }
+        }
+        else if(action == "friendly") {
           for (var i in friendlyJson.tokens) {
             let option = document.createElement("option");
-            option.value= friendlyJson.tokens[i].frame.toString();
+            option.value = friendlyJson.tokens[i].frame.toString();
             option.text = friendlyJson.tokens[i].id;
             list.append(option);
           }
@@ -79,7 +89,7 @@ export class Viewer extends Phaser.Game {
         else if(action == "enemy") {
           for (var i in enemyJson.tokens) {
             let option = document.createElement("option");
-            option.value= enemyJson.tokens[i].frame.toString();
+            option.value = enemyJson.tokens[i].frame.toString();
             option.text = enemyJson.tokens[i].id;
             list.append(option);
           }

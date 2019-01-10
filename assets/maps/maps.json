@@ -1,7 +1,7 @@
 {
     "maps": [
         {
-            "name": "test",
+            "name": "M00",
             "file": "grid.png",
             "width": 60,
             "height": 60,
@@ -10,66 +10,16 @@
             "hidden": false
         },
         {
-            "name": "goblin_ambush",
+            "name": "M01",
             "file": "goblin_ambush.jpg",
             "width": 59,
             "height": 59,
             "offsetX": 52,
             "offsetY": 52,
-            "hidden": false,
-            "tokenPositions": [
-                { 
-                    "token": "david_pc",
-                    "frame": 3,
-                    "x": 2,
-                    "y": 2
-                },
-                { 
-                    "token": "greg_pc",
-                    "frame": 6,
-                    "x": 2,
-                    "y": 3
-                },
-                { 
-                    "token": "yukon_pc",
-                    "frame": 9,
-                    "x": 3,
-                    "y": 2
-                },
-                { 
-                    "token": "mitch_pc",
-                    "frame": 7,
-                    "x": 3,
-                    "y": 3
-                },
-                { 
-                    "token": "goblin",
-                    "frame": 1,
-                    "x": 14,
-                    "y": 4
-                },
-                { 
-                    "token": "goblin",
-                    "frame": 1,
-                    "x": 18,
-                    "y": 4
-                },
-                { 
-                    "token": "goblin",
-                    "frame": 1,
-                    "x": 15,
-                    "y": 12
-                },
-                { 
-                    "token": "goblin",
-                    "frame": 1,
-                    "x": 19,
-                    "y": 7
-                }
-            ]
+            "hidden": false
         },
         {
-            "name": "cragmaw_hideout",
+            "name": "M02",
             "file": "cragmaw_hideout.jpg",
             "width": 180,
             "height": 180,

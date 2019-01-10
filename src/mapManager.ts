@@ -10,4 +10,8 @@ export class MapManager {
             }
         }
     }
+
+    public getMaps():Array<Map> {
+        return mapsJson.maps;
+    }
 }
