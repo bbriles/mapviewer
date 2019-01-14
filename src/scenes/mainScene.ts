@@ -2,6 +2,8 @@ import { MapManager } from "../mapManager";
 import { Map } from "../map";
 import { TokenPosition } from "../tokenPosition";
 import { Viewer } from "../viewer";
+import * as mapsJson from "../../assets/maps/maps.json";
+import { Game } from "phaser";
 
 export class MainScene extends Phaser.Scene {
   public currentAction:string = "none";
@@ -20,26 +22,28 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.mapManager = new MapManager();
-    this.map = this.mapManager.loadMap("M01");
-    this.load.image(this.map.name, "./assets/maps/"+this.map.file);
+    this.hideGroup = this.add.group();
+    this.hideTiles = new Array<Phaser.GameObjects.GameObject[]>();
+
+    this.load.on('filecomplete', function(key, file) {
+      if(key == "map") {
+        alert("map sprite loaded - " + key);
+        this.mapSprite = this.add.image(0, 0, key).setOrigin(0,0);
+        this.mapSprite.setInteractive();
+        this.cameras.main.setBounds(0, 0, this.mapSprite.width, this.mapSprite.height);
+
+        if(this.map.hidden) {
+          this.hideMap();
+        }
+      }
+    }, this);
+
+    this.loadMap("M02");
     this.load.spritesheet("tokens", "./assets/tokens/tokens.png", { frameWidth: 120, frameHeight: 120 });
     this.load.image("hide", "./assets/hide.png");
   }
 
   create(): void {
-    this.mapSprite = this.add.sprite(0, 0, this.map.name).setOrigin(0, 0);
-    this.mapSprite.setInteractive();
-
-    this.addTokens(this.map.tokenPositions);
-    this.hideGroup = this.add.group();
-    this.hideTiles = new Array<Phaser.GameObjects.GameObject[]>();
-    if(this.map.hidden) {
-      this.hideMap();
-    }
-
-    this.cameras.main.setBounds(0, 0, this.mapSprite.width, this.mapSprite.height);
-
     var cursors = this.input.keyboard.createCursorKeys();
 
     var controlConfig = {
@@ -115,6 +119,26 @@ export class MainScene extends Phaser.Scene {
       for(var i in tokenPositions) {
         this.tokens.add(this.addToken(tokenPositions[i].x,tokenPositions[i].y, tokenPositions[i].frame));
       }
+    }
+  }
+
+  private loadMap(mapName:string):void {
+    // delete current map sprite if there is one
+    this.map = null;
+    if(this.mapSprite) {
+      this.mapSprite.destroy();
+      this.mapSprite = null;
+    }
+    
+    // load map info from JSON
+    for (var i in mapsJson.maps) {
+      if (mapsJson.maps[i].name == mapName) {
+          this.map = mapsJson.maps[i];
+      }
+    }
+
+    if(this.map) {
+      this.load.image("map", "./assets/maps/"+this.map.file);
     }
   }
 
