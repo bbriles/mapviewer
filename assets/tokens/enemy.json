@@ -1,29 +1,149 @@
 {
     "tokens": [
         {
-            "id": "E01",
-            "name": "Goblin",
-            "frame": 1
-        },
-        {
-            "id": "E02",
-            "name": "Wolf",
-            "frame": 5
-        },
-        {
-            "id": "E03",
+            "id": "Bugbear",
             "name": "Bugbear",
+            "frame": 6
+        },
+		{
+            "id": "Goblin",
+            "name": "Goblin",
+            "frame": 9
+        },
+        
+        {
+            "id": "Wolf",
+            "name": "Wolf",
+            "frame": 17
+        },
+        {
+            "id": "E01",
+            "name": "Banshee",
             "frame": 0
         },
         {
-            "id": "E04",
-            "name": "Owlbear",
+            "id": "E02",
+            "name": "Dragon Cultist",
             "frame": 2
         },
-        {
-            "id": "E05",
-            "name": "Yeemik",
+		{
+            "id": "E03",
+            "name": "Glasstaff",
+            "frame": 3
+        },
+		{
+            "id": "E04",
+            "name": "Ogre",
+            "frame": 4
+        },
+		{
+            "id": "EO5",
+            "name": "Twig Blight",
+            "frame": 5
+        },
+		{
+            "id": "E06",
+            "name": "Drider",
             "frame": 8
+        },
+		{
+            "id": "E07",
+            "name": "Orc",
+            "frame": 10
+        },
+		{
+            "id": "E08",
+            "name": "Doppelganger",
+            "frame": 13
+        },
+		{
+            "id": "E09",
+            "name": "Flameskull",
+            "frame": 14
+        },
+		{
+            "id": "E10",
+            "name": "Owlbear",
+            "frame": 16
+        },
+		{
+            "id": "E11",
+            "name": "Ghoul",
+            "frame": 18
+        },
+		{
+            "id": "E12",
+            "name": "Giant Snake",
+            "frame": 19
+        },
+		{
+            "id": "E13",
+            "name": "Giant Spider",
+            "frame": 20
+        },
+		{
+            "id": "E14",
+            "name": "Grick",
+            "frame": 21
+        },
+		{
+            "id": "E15",
+            "name": "Redbrand Ruffian",
+            "frame": 22
+        },
+		{
+            "id": "E16",
+            "name": "Wraith",
+            "frame": 23
+        },
+		{
+            "id": "E17",
+            "name": "Hobgoblin",
+            "frame": 24
+        },
+		{
+            "id": "E18",
+            "name": "Nothic",
+            "frame": 26
+        },
+		{
+            "id": "E19",
+            "name": "Ochre Jelly",
+            "frame": 27
+        },
+		{
+            "id": "E20",
+            "name": "Skeleton",
+            "frame": 30
+        },
+		{
+            "id": "E21",
+            "name": "Spectator",
+            "frame": 31
+        },
+		{
+            "id": "E22",
+            "name": "Stirge",
+            "frame": 32
+        },
+		{
+            "id": "E23",
+            "name": "Stone Golem",
+            "frame": 33
+        },
+		{
+            "id": "E24",
+            "name": "BlackSpider",
+            "frame": 34
+        },
+		{
+            "id": "E25",
+            "name": "Venomfang",
+            "frame": 35
+        },{
+            "id": "E26",
+            "name": "Zombie",
+            "frame": 37
         }
     ]
 }

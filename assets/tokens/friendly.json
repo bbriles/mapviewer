@@ -1,34 +1,44 @@
 {
     "tokens": [
         {
-            "id": "Greg PC",
+            "id": "Corvax",
             "name": "Greg's PC",
-            "frame": 6
+            "frame": 15
         },
-        {
-            "id": "Vlad PC",
-            "name": "Vlad's PC",
-            "frame": 10
-        },
-        {
-            "id": "Yukon PC",
-            "name": "Yukon's PC",
-            "frame": 9
-        },
-        {
+		{
             "id": "Darrik",
             "name": "Mitch's PC",
-            "frame": 7
+            "frame": 25
+        },
+        {
+            "id": "Giovani",
+            "name": "Vlad's PC",
+            "frame": 11
+        },
+        {
+            "id": "Sorath",
+            "name": "Yukon's PC",
+            "frame": 36
         },
         {
             "id": "Valamer",
             "name": "David's PC",
-            "frame": 3
+            "frame": 12
         },
         {
-            "id": "N001",
+            "id": "Sildar",
             "name": "Sildar Hallwinter",
-            "frame": 11
+            "frame": 28
+        },
+		{
+            "id": "Commoner-F",
+            "name": "Commoner (Female)",
+            "frame": 1
+        },
+		{
+            "id": "Commoner-M",
+            "name": "Commoner (Male)",
+            "frame": 7
         }
     ]
 }
