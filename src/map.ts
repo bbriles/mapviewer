@@ -8,5 +8,9 @@ export class Map {
     offsetX: integer;
     offsetY: integer;
     hidden: boolean;
+    showStartX?: integer;
+    showStartY?: integer;
+    showEndX?: integer;
+    showEndY?: integer;
     tokenPositions?: TokenPosition[];
 }

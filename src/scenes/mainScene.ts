@@ -1,4 +1,3 @@
-import { MapManager } from "../mapManager";
 import { Map } from "../map";
 import { TokenPosition } from "../tokenPosition";
 import { Viewer } from "../viewer";
@@ -7,7 +6,6 @@ import { Game } from "phaser";
 
 export class MainScene extends Phaser.Scene {
   public currentAction:string = "none";
-  protected mapManager:MapManager;
   protected map:Map;
   private mapSprite: Phaser.GameObjects.Sprite;
   private tokens: Phaser.GameObjects.Group;
@@ -27,13 +25,16 @@ export class MainScene extends Phaser.Scene {
 
     this.load.on('filecomplete', function(key, file) {
       if(key == "map") {
-        alert("map sprite loaded - " + key);
         this.mapSprite = this.add.image(0, 0, key).setOrigin(0,0);
         this.mapSprite.setInteractive();
         this.cameras.main.setBounds(0, 0, this.mapSprite.width, this.mapSprite.height);
 
         if(this.map.hidden) {
           this.hideMap();
+
+          if(this.map.showStartX != null) {
+            this.showMapSection(this.map.showStartX, this.map.showStartY, this.map.showEndX, this.map.showEndY);
+          }
         }
       }
     }, this);
@@ -44,6 +45,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   create(): void {
+    this.tokens = this.add.group();
     var cursors = this.input.keyboard.createCursorKeys();
 
     var controlConfig = {
@@ -66,8 +68,8 @@ export class MainScene extends Phaser.Scene {
       let viewer = self.game as Viewer;
 
       if(viewer.currentAction == "move") {
-        gameObject.x = dragX;
-        gameObject.y = dragY;
+        gameObject.x = pointer.worldX;
+        gameObject.y = pointer.worldY;
       }
     });
 
@@ -105,6 +107,13 @@ export class MainScene extends Phaser.Scene {
       if(viewer.currentAction == "friendly" || viewer.currentAction == "enemy") {
         self.addToken(col, row, +viewer.getSelectedOption());
       }
+      else if(viewer.currentAction == "show") {
+        self.hideTiles[row][col].destroy();
+        self.hideTiles[row][col] = null;
+      }
+      else if(viewer.currentAction == "hide") {
+
+      }
     });
   }
 
@@ -114,7 +123,6 @@ export class MainScene extends Phaser.Scene {
   }
 
   private addTokens(tokenPositions?:TokenPosition[]) {
-    this.tokens = this.add.group();
     if(tokenPositions) {
       for(var i in tokenPositions) {
         this.tokens.add(this.addToken(tokenPositions[i].x,tokenPositions[i].y, tokenPositions[i].frame));
@@ -202,5 +210,41 @@ export class MainScene extends Phaser.Scene {
       } 
 
     });
+  }
+
+  private showMapSection(startX:integer, startY:integer, endX:integer, endY) {
+    for(var row = startY; row <= endY; row++) {
+      for(var col = startX; col <= endX; col++) {
+        if(this.hideTiles[row][col]) {
+          this.hideTiles[row][col].destroy();
+          this.hideTiles[row][col] = null;
+        }
+      }
+    }
+
+  }
+
+  public save():void {
+    let tokens = this.getCurrentTokens();
+  }
+
+  private getCurrentTokens():Array<TokenPosition> {
+    let tokenList = new Array<TokenPosition>();
+
+    let xOffset = this.map.offsetX + this.map.width /2;
+    let yOffset = this.map.offsetY + this.map.height /2;
+
+    if(this.tokens) {
+      for(let gameObj of this.tokens.getChildren()) {
+          let token = gameObj as Phaser.GameObjects.Sprite;
+          let tokenPos = new TokenPosition();
+          tokenPos.x = Math.round((token.x - xOffset) / this.map.width);
+          tokenPos.y = Math.round((token.y - yOffset) / this.map.height);
+          tokenPos.frame = token.frame.sourceIndex;
+          tokenList.push(new TokenPosition());
+      }
+    }
+
+    return tokenList;
   }
 }

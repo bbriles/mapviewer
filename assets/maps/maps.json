@@ -19,13 +19,26 @@
             "hidden": false
         },
         {
-            "name": "M02",
+            "name": "CragmawHideout",
             "file": "cragmaw_hideout.jpg",
             "width": 180,
             "height": 180,
             "offsetX": 0,
             "offsetY": 0,
-            "hidden": true
+            "hidden": true,
+            "showStartX": 0,
+            "showStartY": 16,
+            "showEndX": 15,
+            "showEndY": 21
+        },
+        {
+            "name": "M02",
+            "file": "redbrand_hideout.jpg",
+            "width": 45,
+            "height": 45,
+            "offsetX": 30,
+            "offsetY": 30,
+            "hidden": false
         }
     ]
 }

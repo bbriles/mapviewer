@@ -5,6 +5,7 @@ import { MainScene } from "./scenes/mainScene";
 import * as friendlyJson from "../assets/tokens/friendly.json";
 import * as enemyJson from "../assets/tokens/enemy.json";
 import * as mapsJson from "../assets/maps/maps.json";
+import { Scenes } from "phaser";
 
 // main game configuration
 const config: GameConfig = {
@@ -46,6 +47,10 @@ export class Viewer extends Phaser.Game {
     btn.addEventListener("click", (e:Event) => this.clickMenuButton("enemy"));
     btn = document.getElementById("killButton");
     btn.addEventListener("click", (e:Event) => this.clickMenuButton("kill"));
+    btn = document.getElementById("saveButton");
+    btn.addEventListener("click", (e:Event) => this.clickMenuButton("save"));
+    btn = document.getElementById("loadButton");
+    btn.addEventListener("click", (e:Event) => this.clickMenuButton("load"));
   }
 
   public clickMenuButton(action:string):void {
@@ -58,7 +63,17 @@ export class Viewer extends Phaser.Game {
     
     if(button != null) {
       button.classList.add("selected");
-      this.selectedButton = button;
+      this.selectedButton = button
+      // handle instant action buttons (don't change mode)
+      if(action == "save") {
+        let mainScene = this.scene.getAt(0) as MainScene;
+
+        mainScene.save();
+      }
+      else if(action == "load") {
+
+      }
+
       this.currentAction = action;
 
       let listMenu = document.getElementById("listMenu");
