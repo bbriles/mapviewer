@@ -4,36 +4,43 @@ html {
     background-color: black;
 }
 
-#menu {
+.menuContainer {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 300px;
-    background-color: #e7e7e7;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+}
+
+.menu {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
     border: 1px solid black;
     font-size: 24px;
     padding: 2px;
+    text-align: center;
+    background-color: #e7e7e7;
 }
 
 #listMenu {
     position: absolute;
     top: 45px;
-    left: 10px;
-    width: 100px;
+    left: 80px;
+    overflow: hidden;
     background-color: #e7e7e7;
     border: 1px solid black;
     font-size: 24px;
     padding: 2px;
 }
 
-#menu ul {
+.menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     color: #1e8bf0;
 }
 
-#menu ul li {
+.menu ul li {
     display: inline;
     cursor: pointer;
     padding-left: 2px;
@@ -42,6 +49,10 @@ html {
 
 .selected {
     color: #ef0000;
+}
+
+.toggled {
+    color: #52ce50;
 }
 
 .hidden {

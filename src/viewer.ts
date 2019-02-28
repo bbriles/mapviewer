@@ -22,6 +22,7 @@ export class Viewer extends Phaser.Game {
 
   private selectedButton: HTMLElement = null;
   public currentAction: string;
+  public snapToGrid: boolean = false;
 
   constructor(config: GameConfig) {
     super(config);
@@ -51,6 +52,8 @@ export class Viewer extends Phaser.Game {
     btn.addEventListener("click", (e:Event) => this.clickMenuButton("save"));
     btn = document.getElementById("loadButton");
     btn.addEventListener("click", (e:Event) => this.clickMenuButton("load"));
+    btn = document.getElementById("gridButton");
+    btn.addEventListener("click", (e:Event) => this.toggleMenuButton("grid"));
   }
 
   public clickMenuButton(action:string):void {
@@ -113,6 +116,31 @@ export class Viewer extends Phaser.Game {
       else if (!listMenu.classList.contains("hidden")) {
         listMenu.classList.add("hidden");
       }
+    }
+  }
+
+  public toggleMenuButton(toggle:string):void {
+    /*if(this.selectedButton != null) {
+      this.selectedButton.classList.remove("selected");
+    }*/
+
+    // Doing this due to inconsistency with the element in event target
+    let button = document.getElementById(toggle + "Button");
+    
+    
+
+    if(button != null) {
+      if(button.classList.contains("toggled")) {
+        button.classList.remove("toggled");
+      }
+      else {
+        button.classList.add("toggled");
+      }
+      
+      if(toggle == "grid") {
+        this.snapToGrid = !this.snapToGrid;
+      }
+
     }
   }
 

@@ -39,7 +39,7 @@ export class MainScene extends Phaser.Scene {
       }
     }, this);
 
-    this.loadMap("M02");
+    this.loadMap("M01");
     this.load.spritesheet("tokens", "./assets/tokens/tokens.png", { frameWidth: 120, frameHeight: 120 });
     this.load.image("hide", "./assets/hide.png");
   }
@@ -76,7 +76,7 @@ export class MainScene extends Phaser.Scene {
     this.input.on("dragend", function(pointer, gameObject):void {
       let viewer = self.game as Viewer;
 
-      if(viewer.currentAction == "move") {
+      if(viewer.currentAction == "move" && viewer.snapToGrid) {
         let xOffset = self.map.offsetX + self.map.width /2;
         let yOffset = self.map.offsetY + self.map.height /2;
 
@@ -105,7 +105,12 @@ export class MainScene extends Phaser.Scene {
       let row = Math.floor((pointer.worldY - self.map.offsetY) / self.map.height);
 
       if(viewer.currentAction == "friendly" || viewer.currentAction == "enemy") {
-        self.addToken(col, row, +viewer.getSelectedOption());
+        if(viewer.snapToGrid) {
+          self.addToken(col, row, +viewer.getSelectedOption());
+        }
+        else {
+          self.addTokenAtXY(pointer.worldX, pointer.worldY, +viewer.getSelectedOption());
+        }
       }
       else if(viewer.currentAction == "show") {
         self.hideTiles[row][col].destroy();
@@ -151,8 +156,12 @@ export class MainScene extends Phaser.Scene {
   }
 
   private addToken(gridX:integer, gridY:integer, frame:integer):Phaser.GameObjects.Image {
-    let token = this.add.image(gridX * this.map.width + this.map.width / 2 + this.map.offsetX, 
-      gridY * this.map.height + this.map.height / 2 + this.map.offsetY , "tokens", frame);
+    return this.addTokenAtXY(gridX * this.map.width + this.map.width / 2 + this.map.offsetX, 
+      gridY * this.map.height + this.map.height / 2 + this.map.offsetY, frame);
+  }
+
+  private addTokenAtXY(x:number, y:number, frame:integer):Phaser.GameObjects.Image {
+    let token = this.add.image(x, y , "tokens", frame);
     
     let scaleX = 1;
     let scaleY = 1;
